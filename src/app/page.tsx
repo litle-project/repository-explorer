@@ -106,7 +106,7 @@ const Page = () => {
   return (
     <Layout>
       <div className="flex justify-center w-full bg-white">
-        <div className="flex flex-col gap-3 py-5 px-2 w-1/2 bg-gray-100 h-full min-h-lvh">
+        <div className="flex flex-col gap-3 py-5 px-2 lg:w-1/2 w-full bg-gray-100 h-full min-h-lvh">
           <Input
             placeholder="Enter username"
             error={error}
