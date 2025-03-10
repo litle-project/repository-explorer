@@ -21,7 +21,7 @@ const Button = (props: IProps) => {
   
   return (
     <button
-      className={`w-full text-white py-1 cursor-pointer rounded-sm focus:outline-none flex items-center gap-2 justify-center ${loading.status ? 'bg-gray-400' : 'bg-blue-400 hover:bg-blue-500'}`}
+      className={`w-full text-white py-1 cursor-pointer rounded-sm flex items-center gap-2 justify-center ${loading.status ? 'bg-gray-400' : 'bg-blue-400 hover:bg-blue-500'}`}
       type="button"
       disabled={loading.status}
       onClick={handler}

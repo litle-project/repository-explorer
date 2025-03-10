@@ -9,8 +9,8 @@ Make sure you have the following installed:
 ### 1️⃣ Clone the Repository (Optional)
 If you haven’t cloned the project yet, run:
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/litle-project/repository-explorer.git
+cd repository-explorer
 ```
 
 ### 2️⃣ Install Dependencies
@@ -73,10 +73,10 @@ NEXT_PUBLIC_GITHUB_TOKEN=your_github_token_here
 ```
 /src
   ├── components    # Reusable UI components
-  ├── pages         # Next.js pages (routes)
+  ├── app           # all business logic stored
   ├── styles        # Global and component styles
-  ├── public        # Static assets (images, icons, etc.)
-  ├── utils         # Helper functions and utilities
+/ public
+  ├── assets        # Static assets (images, icons, etc.)
 ```
 
 ## 🔗 Resources

@@ -13,6 +13,24 @@ const Page = () => {
     message: string
   }
 
+  interface GitHubRepo {
+    id: number;
+    name: string;
+    description: string;
+    forks_count: number;
+  }
+
+  interface GithubUser {
+    id: number;
+    login: string;
+  }
+
+  interface GithubResponse {
+    incomplete_results: string;
+    items: Array<GithubUser>;
+    total_count: number;
+  }
+
   interface IRepo {
     id: number,
     name: string,
@@ -40,30 +58,32 @@ const Page = () => {
     setBusy((prev) => ({ ...prev, message: 'Now, fetching repository on progress...' }))
     
     const fetchRepo = users.map((user: IUser) => fetch(`https://api.github.com/users/${user.name}/repos`).then((response) => response.json()))
-    await (await Promise.all(fetchRepo)).forEach((items: Array<any>, index: number) => {
-      const remap: IRepo[] = items.map((item: any) => ({
-        id: item.id,
-        name: item.name,
-        description: item.description,
-        totalFork: item.forks_count
-      }))
-      
-      users[index].repos.push(...remap)
-    })
+    await Promise.all(fetchRepo).then((results) => {
+      results.forEach((items: GitHubRepo[], index: number) => {
+        const remap: IRepo[] = items.map((item) => ({
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          totalFork: item.forks_count || 0,
+        }));
+    
+        users[index].repos.push(...remap);
+      });
+    });
     
     setBusy({ status: false, message: '' })
   }
 
-  const findUser = async () => {
-    if (username === '') return setError('Please insert username!')
+  const findUser = async (param = '') => {
+    if (username === '' || param === '') return setError('Please insert username!')
     
     setBusy({ status: true, message: 'Please wait while searching username...' })
     
     const query = new URLSearchParams({ q: username, per_page: "5" })
     const request = await fetch(`https://api.github.com/search/users?${query.toString()}`,)
-    const responses = await request.json()
+    const responses: GithubResponse = await request.json()
     
-    const remap = responses?.items?.map((response: any) => ({
+    const remap = responses?.items?.map((response: GithubUser) => ({
       id: response.id,
       name: response.login,
       repos: []
@@ -80,6 +100,7 @@ const Page = () => {
 
   useEffect(() => {
     if (users.length > 0) findRepo()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users])
  
   return (
@@ -90,6 +111,7 @@ const Page = () => {
             placeholder="Enter username"
             error={error}
             handler={(value: string) => setUsername(value)}
+            eventKey={(value: string) => findUser(value)}
           />
           <Button
             label={busy.status ? busy.message : 'Search'}
