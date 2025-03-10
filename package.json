@@ -1,5 +1,6 @@
 {
   "name": "repository-explorer",
+  "homepage": "https://litle-project.github.io/repository-explorer/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,9 +9,12 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest test",
-    "test:clean-cache": "npx jest --clearCache"
+    "test:clean-cache": "npx jest --clearCache",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d out --nojekyll"
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "next": "15.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
