@@ -13,6 +13,8 @@ interface IProps {
 }
 
 const Button = (props: IProps) => {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH
+  
   const {
     loading = { status: false, message: '' },
     label = 'Button',
@@ -28,7 +30,7 @@ const Button = (props: IProps) => {
     >
       <Image
         className={`animate-spin ${loading.status ? '' : 'hidden'}`}
-        src="/assets/images/spinner.svg"
+        src={`${basePath}/assets/images/spinner.svg`}
         alt="loading_icon"
         width={20}
         height={20}
