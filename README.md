@@ -54,10 +54,14 @@ npm run start
 ```
 
 ## ✨ Environment Variables
-Create a **`.env.local`** file in the root directory and add your environment variables:
+Before running the project, copy the .env.example file to .env:
 ```
-NEXT_PUBLIC_API_KEY=your_api_key_here
-NEXT_PUBLIC_GITHUB_TOKEN=your_github_token_here
+cp .env.example .env.local
+```
+
+Then, update the values inside .env.local as needed.
+```
+NEXT_PUBLIC_GITHUB_API_URL=your_api_key_here
 ```
 
 ## 🛠 Useful Commands
