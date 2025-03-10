@@ -53,6 +53,17 @@ Then, start the production server:
 npm run start
 ```
 
+## ✨ Environment Variables
+Before running the project, copy `.env.example` to `.env`:
+```
+cp .env.example .env.local
+```
+Then, update the values inside ```.env``` as needed.
+```
+NEXT_PUBLIC_NODE_ENV=fill with your needs (local and production)
+NEXT_PUBLIC_BASE_PATH=setup your basepath, default is / (for deployment purpose)
+```
+
 ## 🛠 Useful Commands
 | Command | Description |
 |---------|-------------|

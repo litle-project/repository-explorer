@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  assetPrefix: isProd ? '/reporistory-explorer/' : '',
-  basePath: isProd ? '/reporistory-explorer' : '',
+  assetPrefix: isProd ? '/repository-explorer/' : '',
+  basePath: isProd ? '/repository-explorer' : '',
   output: 'export'
 };
 

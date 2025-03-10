@@ -44,6 +44,7 @@ const Page = () => {
     repos: Array<IRepo>
   }
 
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH
   const [username, setUsername] = useState<string>('')
   const [users, setUsers] = useState<Array<IUser>>([])
   const [showDetail, setShowDetail] = useState<number>(0)
@@ -75,11 +76,14 @@ const Page = () => {
   }
 
   const findUser = async (param = '') => {
-    if (username === '' || param === '') return setError('Please insert username!')
+    let payload = username
+    if (param) payload = param
+    
+    if (payload === '') return setError('Please insert username!')
     
     setBusy({ status: true, message: 'Please wait while searching username...' })
     
-    const query = new URLSearchParams({ q: username, per_page: "5" })
+    const query = new URLSearchParams({ q: payload, per_page: "5" })
     const request = await fetch(`https://api.github.com/search/users?${query.toString()}`,)
     const responses: GithubResponse = await request.json()
     
@@ -127,7 +131,9 @@ const Page = () => {
                 >
                   <span>{user.name}</span>
                   <Image
-                    src={showDetail === user.id ? "/assets/images/arrow-up.svg" : "/assets/images/arrow-down.svg"}
+                    src={showDetail === user.id
+                      ? `${basePath}/assets/images/arrow-up.svg`
+                      : `${basePath}/assets/images/arrow-down.svg`}
                     alt="arrow_down"
                     width={25}
                     height={25}
@@ -141,7 +147,7 @@ const Page = () => {
                         <div className="flex gap-2 items-center">
                           <span>{repo.totalFork}</span>
                           <Image
-                            src="/assets/images/favorite.svg"
+                            src={`${basePath}/assets/images/favorite.svg`}
                             alt="arrow_down"
                             width={18}
                             height={18}
