@@ -44,7 +44,6 @@ const Page = () => {
     repos: Array<IRepo>
   }
 
-  const baseURL = process.env.NEXT_PUBLIC_GITHUB_API_URL;
   const [username, setUsername] = useState<string>('')
   const [users, setUsers] = useState<Array<IUser>>([])
   const [showDetail, setShowDetail] = useState<number>(0)
@@ -58,7 +57,7 @@ const Page = () => {
   const findRepo = async () => {
     setBusy((prev) => ({ ...prev, message: 'Now, fetching repository on progress...' }))
     
-    const fetchRepo = users.map((user: IUser) => fetch(`${baseURL}/users/${user.name}/repos`).then((response) => response.json()))
+    const fetchRepo = users.map((user: IUser) => fetch(`https://api.github.com/users/${user.name}/repos`).then((response) => response.json()))
     await Promise.all(fetchRepo).then((results) => {
       results.forEach((items: GitHubRepo[], index: number) => {
         const remap: IRepo[] = items.map((item) => ({
@@ -81,7 +80,7 @@ const Page = () => {
     setBusy({ status: true, message: 'Please wait while searching username...' })
     
     const query = new URLSearchParams({ q: username, per_page: "5" })
-    const request = await fetch(`${baseURL}/search/users?${query.toString()}`,)
+    const request = await fetch(`https://api.github.com/search/users?${query.toString()}`,)
     const responses: GithubResponse = await request.json()
     
     const remap = responses?.items?.map((response: GithubUser) => ({
